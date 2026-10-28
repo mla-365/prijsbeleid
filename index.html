@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prijsbeleid – les 1</title>
+<style>
+  :root{
+    --ink:#1D1B2E; --ink2:#3A3850; --muted:#6E6B80; --bg:#FFFFFF; --soft:#F1F2F6; --line:#DCDCE5;
+    --red:#E4572E; --redsoft:#FCE3DA; --teal:#17A398; --amber:#F3A712; --amberText:#9A6A00; --purple:#6C5B9E;
+    --ok:#17A398; --bad:#E4572E;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Calibri,"Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+  h1,h2,h3{font-family:Cambria,Georgia,"Times New Roman",serif;margin:0}
+  button{font:inherit;cursor:pointer}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px 16px 40px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .tag{width:38px;height:38px;border-radius:9px;background:var(--red);position:relative;flex:none}
+  .tag::after{content:"";position:absolute;left:8px;top:15px;width:8px;height:8px;border-radius:50%;background:#fff}
+  .brand h1{font-size:22px}
+  .brand p{margin:0;color:var(--muted);font-size:14px}
+  nav{display:flex;gap:8px}
+  nav a{padding:10px 16px;border-radius:10px;background:var(--soft);color:var(--ink);text-decoration:none;font-weight:700}
+  nav a.active{background:var(--ink);color:#fff}
+  .hidden{display:none !important}
+
+  /* ---------- FRITUUR ---------- */
+  .question{font-size:clamp(22px,3vw,34px);font-family:Cambria,Georgia,serif;font-weight:700;margin:4px 0 18px}
+  .grid2{display:grid;grid-template-columns:1.1fr 1fr;gap:20px}
+  @media (max-width:860px){.grid2{grid-template-columns:1fr}}
+  .card{background:var(--soft);border-radius:16px;padding:20px}
+  .sliderRow{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .big{font-size:clamp(40px,6vw,64px);font-weight:800;line-height:1}
+  .lbl{color:var(--muted);font-size:16px}
+  input[type=range]{width:100%;height:36px;accent-color:var(--red)}
+  .presets{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+  .presets button{border:2px solid var(--ink);background:#fff;border-radius:10px;padding:6px 14px;font-weight:700;font-size:17px}
+  .presets button.on{background:var(--ink);color:#fff}
+  .bar{display:flex;height:96px;border-radius:12px;overflow:hidden;margin:18px 0 8px;background:#fff}
+  .seg{display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:clamp(16px,2vw,22px);transition:flex-basis .35s ease;min-width:0;overflow:hidden;white-space:nowrap}
+  .seg small{font-size:12px;font-weight:700;letter-spacing:.06em;opacity:.95}
+  .s-aan{background:var(--amber);color:var(--ink)} .s-vast{background:var(--purple)} .s-winst{background:var(--red)}
+  .keys{display:flex;gap:18px;flex-wrap:wrap;font-size:17px;color:var(--ink2)}
+  .keys i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  .seg.narrow > *{visibility:hidden}
+  .sum{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+  .sum div{background:#fff;border-radius:12px;padding:12px}
+  .sum b{display:block;font-size:clamp(22px,2.6vw,30px)}
+  .sum span{color:var(--muted);font-size:14px}
+  .formula{margin-top:14px;font-size:clamp(17px,2vw,22px)}
+  .formula b{color:var(--purple)}
+  svg text{font-family:Calibri,"Segoe UI",system-ui,Arial,sans-serif}
+  details{margin-top:14px;color:var(--muted)}
+  details label{display:inline-flex;align-items:center;gap:6px;margin:6px 14px 0 0}
+  details input{width:80px;font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:6px}
+
+  /* ---------- HERKEN ---------- */
+  .quiz{max-width:760px;margin:0 auto}
+  .progress{display:flex;gap:6px;margin:6px 0 18px}
+  .progress i{flex:1;height:8px;border-radius:4px;background:var(--line)}
+  .progress i.ok{background:var(--ok)} .progress i.bad{background:var(--bad)} .progress i.now{background:var(--ink)}
+  .case{background:var(--soft);border-radius:16px;padding:22px}
+  .case .nr{color:var(--red);font-weight:800;letter-spacing:.06em;font-size:14px}
+  .case p{font-size:21px;line-height:1.4;margin:8px 0 0}
+  .ask{font-weight:700;margin:20px 0 10px;font-size:18px}
+  .choices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .choices.two{grid-template-columns:repeat(2,1fr)}
+  @media (max-width:560px){.choices,.choices.two{grid-template-columns:1fr}}
+  .choice{border:2px solid var(--line);background:#fff;border-radius:12px;padding:14px 10px;font-weight:800;font-size:18px;display:flex;flex-direction:column;align-items:center;gap:4px}
+  .choice small{font-weight:400;font-size:13px;color:var(--muted)}
+  .choice:hover:not(:disabled){border-color:var(--ink)}
+  .choice.k{--c:var(--amber)} .choice.l{--c:var(--teal)} .choice.c{--c:var(--purple)}
+  .choice .dot{width:14px;height:14px;border-radius:50%;background:var(--c,var(--ink))}
+  .choice.right{border-color:var(--ok);background:#E3F5F3}
+  .choice.wrong{border-color:var(--bad);background:var(--redsoft)}
+  .choice:disabled{cursor:default;color:var(--ink);opacity:1}
+  .fb{margin-top:16px;border-radius:12px;padding:14px 16px;font-size:18px;line-height:1.4}
+  .fb.ok{background:#E3F5F3} .fb.bad{background:var(--redsoft)}
+  .fb b{display:block;margin-bottom:4px}
+  .next{margin-top:16px;background:var(--ink);color:#fff;border:0;border-radius:12px;padding:12px 22px;font-weight:800;font-size:18px}
+  .result{text-align:center;padding:30px 10px}
+  .result .big{color:var(--red)}
+  .tally{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}
+  .tally div{background:var(--soft);border-radius:12px;padding:12px}
+  .tally b{font-size:24px;display:block}
+  .intro{background:var(--soft);border-radius:16px;padding:22px;font-size:19px;line-height:1.45}
+  .legend{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+  .legend div{background:#fff;border-radius:12px;padding:12px;font-size:16px}
+  .legend b{display:block;font-size:18px}
+  @media (max-width:560px){.legend,.tally,.sum{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="tag" aria-hidden="true"></div>
+      <div><h1>Hoe bepaalt een onderneming haar prijs?</h1><p>Commercieel beheer · Level 5 Prijsbeleid</p></div>
+    </div>
+    <nav>
+      <a href="#frituur" id="nav-frituur">1 · De frituur</a>
+      <a href="#herken" id="nav-herken">2 · Herken de prijszetting</a>
+    </nav>
+  </header>
+
+  <!-- ===================== DEEL 1: FRITUUR ===================== -->
+  <section id="frituur">
+    <div class="question">Wat kost één blikje cola voor de frituur?</div>
+    <div class="grid2">
+      <div class="card">
+        <div class="sliderRow">
+          <div><div class="lbl">verkochte blikjes per dag</div><div class="big" id="nOut">50</div></div>
+        </div>
+        <input type="range" id="n" min="10" max="200" step="5" value="50" aria-label="Aantal blikjes per dag">
+        <div class="presets" id="presets">
+          <button data-n="25">25</button><button data-n="50" class="on">50</button><button data-n="100">100</button><button data-n="200">200</button>
+        </div>
+
+        <div class="bar" id="bar" aria-label="Opbouw van de verkoopprijs">
+          <div class="seg s-aan" id="sAan"><small>AANKOOP</small><span id="vAan">€ 0,70</span></div>
+          <div class="seg s-vast" id="sVast"><small>VASTE KOST</small><span id="vVast">€ 0,60</span></div>
+          <div class="seg s-winst" id="sWinst"><small>WINST</small><span id="vWinst">€ 1,20</span></div>
+        </div>
+        <div class="keys"><span><i style="background:var(--amber)"></i>aankoop <b id="kAan">€ 0,70</b></span><span><i style="background:var(--purple)"></i>vaste kost <b id="kVast">€ 0,60</b></span><span><i style="background:var(--red)"></i>winst <b id="kWinst">€ 1,20</b></span></div>
+
+        <div class="sum">
+          <div><span>kostprijs per blikje</span><b id="kp">€ 1,30</b></div>
+          <div><span>+ winst</span><b id="wi">€ 1,20</b></div>
+          <div><span>verkoopprijs</span><b id="vp" style="color:var(--red)">€ 2,50</b></div>
+        </div>
+        <div class="formula" id="formula">vaste kost per blikje = € 30 ÷ 50 = <b>€ 0,60</b></div>
+
+        <details>
+          <summary>Instellingen (voor de lesgever)</summary>
+          <label>aankoop per blikje € <input type="number" id="pAan" value="0.70" step="0.05" min="0"></label>
+          <label>vaste kosten per dag € <input type="number" id="pVast" value="30" step="5" min="0"></label>
+          <label>winst per blikje € <input type="number" id="pWinst" value="1.20" step="0.10" min="0"></label>
+        </details>
+      </div>
+
+      <div class="card">
+        <div class="lbl" style="margin-bottom:6px">kostprijs per blikje bij een ander aantal</div>
+        <svg id="chart" viewBox="0 0 460 340" width="100%" role="img" aria-label="Grafiek: kostprijs per blikje daalt als het aantal blikjes stijgt"></svg>
+        <p style="font-size:19px;margin:10px 0 0"><b>Hoe meer blikjes</b>, hoe kleiner het stukje vaste kosten per blikje.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DEEL 2: HERKEN ===================== -->
+  <section id="herken" class="hidden">
+    <div class="quiz">
+      <div id="qStart">
+        <div class="intro">
+          <h2 style="font-size:26px;margin-bottom:8px">Herken de prijszetting</h2>
+          Lees elke situatie. Welke factor bepaalt hier vooral de prijs?
+          <div class="legend">
+            <div><b style="color:var(--amberText)">Kost</b>kosten + winst<br><small>cost-plus pricing</small></div>
+            <div><b style="color:var(--teal)">Klant</b>wat de klant wil betalen<br><small>value-based pricing</small></div>
+            <div><b style="color:var(--purple)">Concurrent</b>wat de anderen vragen<br><small>going-rate · premium</small></div>
+          </div>
+          Werk samen met je buur. Na elke vraag zie je meteen of je juist zat.
+        </div>
+        <button class="next" id="startBtn">Start</button>
+      </div>
+
+      <div id="qRun" class="hidden">
+        <div class="progress" id="progress"></div>
+        <div class="case"><div class="nr" id="caseNr">SITUATIE 1</div><p id="caseText"></p></div>
+        <div class="ask" id="ask1">Welke factor bepaalt hier vooral de prijs?</div>
+        <div class="choices" id="choices1">
+          <button class="choice k" data-v="kost"><span class="dot"></span>Kost<small>kosten + winst</small></button>
+          <button class="choice l" data-v="klant"><span class="dot"></span>Klant<small>wat de klant wil betalen</small></button>
+          <button class="choice c" data-v="concurrent"><span class="dot"></span>Concurrent<small>wat de anderen vragen</small></button>
+        </div>
+        <div id="step2" class="hidden">
+          <div class="ask">Juist, de concurrent! Volgt de onderneming de markt, of is ze duurder met een meerwaarde?</div>
+          <div class="choices two" id="choices2">
+            <button class="choice c" data-v="going"><span class="dot"></span>Going-rate<small>ongeveer dezelfde prijs</small></button>
+            <button class="choice c" data-v="premium"><span class="dot"></span>Premium<small>duurder, met meerwaarde</small></button>
+          </div>
+        </div>
+        <div id="fb" class="fb hidden"></div>
+        <button class="next hidden" id="nextBtn">Volgende</button>
+      </div>
+
+      <div id="qEnd" class="hidden">
+        <div class="result">
+          <div class="lbl">jullie score</div>
+          <div class="big" id="score">0 / 10</div>
+          <p id="scoreMsg" style="font-size:20px"></p>
+          <div class="tally" id="tally"></div>
+          <button class="next" id="againBtn">Opnieuw (andere volgorde)</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+/* ---------------- helpers ---------------- */
+const eur = v => "€ " + v.toFixed(2).replace(".", ",");
+const $ = id => document.getElementById(id);
+
+/* ---------------- routing ---------------- */
+function route(){
+  const h = location.hash === "#herken" ? "herken" : "frituur";
+  $("frituur").classList.toggle("hidden", h !== "frituur");
+  $("herken").classList.toggle("hidden", h !== "herken");
+  $("nav-frituur").classList.toggle("active", h === "frituur");
+  $("nav-herken").classList.toggle("active", h === "herken");
+}
+addEventListener("hashchange", route); route();
+
+/* ---------------- DEEL 1 ---------------- */
+const nIn = $("n");
+function params(){
+  const g = (id, d) => { const v = parseFloat($(id).value); return isNaN(v) || v < 0 ? d : v; };
+  return { aan: g("pAan", .7), vast: g("pVast", 30), winst: g("pWinst", 1.2) };
+}
+function drawChart(n){
+  const p = params(), svg = $("chart");
+  const W = 460, H = 340, L = 54, R = 16, T = 16, B = 46;
+  const xMin = 10, xMax = 200;
+  const yMax = Math.max(1, Math.ceil(p.aan + p.vast / xMin));
+  const X = v => L + (v - xMin) / (xMax - xMin) * (W - L - R);
+  const Y = v => T + (1 - v / yMax) * (H - T - B);
+  let s = "";
+  // grid + y labels
+  const step = yMax <= 4 ? 1 : Math.ceil(yMax / 4);
+  for (let v = 0; v <= yMax; v += step){
+    s += `<line x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}" stroke="#E6E6EE"/>`;
+    s += `<text x="${L-8}" y="${Y(v)+5}" font-size="14" text-anchor="end" fill="#6E6B80">€ ${v}</text>`;
+  }
+  [10,50,100,150,200].forEach(v => s += `<text x="${X(v)}" y="${H-B+22}" font-size="14" text-anchor="middle" fill="#6E6B80">${v}</text>`);
+  s += `<text x="${(L+W-R)/2}" y="${H-6}" font-size="14" text-anchor="middle" fill="#6E6B80">blikjes per dag</text>`;
+  // aankoop floor
+  s += `<line x1="${L}" x2="${W-R}" y1="${Y(p.aan)}" y2="${Y(p.aan)}" stroke="#F3A712" stroke-width="2" stroke-dasharray="6 5"/>`;
+  s += `<text x="${L+6}" y="${Y(p.aan)+18}" font-size="13" text-anchor="start" fill="#9A6A00">aankoop blijft ${eur(p.aan)}</text>`;
+  // curve
+  let d = "";
+  for (let v = xMin; v <= xMax; v += 2){ d += (v === xMin ? "M" : "L") + X(v).toFixed(1) + "," + Y(p.aan + p.vast / v).toFixed(1); }
+  s += `<path d="${d}" fill="none" stroke="#6C5B9E" stroke-width="4" stroke-linecap="round"/>`;
+  // point
+  const kp = p.aan + p.vast / n;
+  s += `<line x1="${X(n)}" x2="${X(n)}" y1="${Y(kp)}" y2="${Y(0)}" stroke="#1D1B2E" stroke-dasharray="3 4"/>`;
+  s += `<circle cx="${X(n)}" cy="${Y(kp)}" r="9" fill="#E4572E" stroke="#fff" stroke-width="3"/>`;
+  const tx = X(n) > W - 140 ? X(n) - 14 : X(n) + 14, anchor = X(n) > W - 140 ? "end" : "start";
+  s += `<text x="${tx}" y="${Y(kp)-12}" font-size="18" font-weight="700" text-anchor="${anchor}" fill="#1D1B2E">${eur(kp)}</text>`;
+  svg.innerHTML = s;
+}
+function update(){
+  const n = +nIn.value, p = params();
+  const vastPer = p.vast / n, kp = p.aan + vastPer, vp = kp + p.winst;
+  const maxScale = p.aan + p.vast / 10 + p.winst;   // breedte schaal = situatie bij 10 blikjes
+  $("nOut").textContent = n;
+  $("sAan").style.flex = `0 0 ${p.aan / maxScale * 100}%`;
+  $("sVast").style.flex = `0 0 ${vastPer / maxScale * 100}%`;
+  $("sWinst").style.flex = `0 0 ${p.winst / maxScale * 100}%`;
+  $("vAan").textContent = eur(p.aan); $("vVast").textContent = eur(vastPer); $("vWinst").textContent = eur(p.winst);
+  [["sAan",p.aan],["sVast",vastPer],["sWinst",p.winst]].forEach(([id,v]) => $(id).classList.toggle("narrow", v / maxScale < .16));
+  $("kAan").textContent = eur(p.aan); $("kVast").textContent = eur(vastPer); $("kWinst").textContent = eur(p.winst);
+  $("kp").textContent = eur(kp); $("wi").textContent = eur(p.winst); $("vp").textContent = eur(vp);
+  $("formula").innerHTML = `vaste kost per blikje = € ${String(p.vast).replace(".", ",")} ÷ ${n} = <b>${eur(vastPer)}</b>`;
+  document.querySelectorAll("#presets button").forEach(b => b.classList.toggle("on", +b.dataset.n === n));
+  drawChart(n);
+}
+nIn.addEventListener("input", update);
+["pAan","pVast","pWinst"].forEach(id => $(id).addEventListener("input", update));
+document.querySelectorAll("#presets button").forEach(b => b.addEventListener("click", () => { nIn.value = b.dataset.n; update(); }));
+update();
+
+/* ---------------- DEEL 2 ---------------- */
+const CASES = [
+  { t: "Tickets voor Tomorrowland zijn duur. Toch zijn ze binnen enkele minuten uitverkocht.", a: "klant",
+    e: "De organisatie weet dat fans heel veel willen betalen om erbij te zijn. De prijs volgt wat de klant ervoor overheeft: value-based pricing." },
+  { t: "Dezelfde Samsung-tv kost bij Coolblue, MediaMarkt en Vandenborre bijna exact hetzelfde.", a: "concurrent", b: "going",
+    e: "De winkels houden elkaar in de gaten en volgen de prijs van de markt: going-rate pricing." },
+  { t: "Je kapper telt alle kosten van een knipbeurt op (huur, shampoo, loon) en doet er telkens hetzelfde bedrag bovenop.", a: "kost",
+    e: "Kosten + een vaste opslag voor winst: dat is cost-plus pricing." },
+  { t: "De fietsenwinkel om de hoek is duurder dan Decathlon. Maar je krijgt advies en het eerste jaar gratis onderhoud.", a: "concurrent", b: "premium",
+    e: "De winkel is bewust duurder dan de grote concurrent en geeft er iets extra voor: premium pricing." },
+  { t: "Een bakker berekent wat de bloem, de boter, de stroom van de oven en zijn werkuren kosten. Daarna telt hij zijn winst erbij.", a: "kost",
+    e: "De bakker vertrekt van zijn kosten en telt er winst bij: cost-plus pricing." },
+  { t: "Twee tankstations aan hetzelfde kruispunt vragen bijna dezelfde prijs voor een liter benzine.", a: "concurrent", b: "going",
+    e: "Wie duurder is, verliest klanten aan de overkant. Ze volgen de marktprijs: going-rate pricing." },
+  { t: "Een zeldzame Nike-sneaker wordt doorverkocht voor € 400, terwijl hij in de winkel € 120 kostte.", a: "klant",
+    e: "Verzamelaars willen er zoveel voor betalen. De prijs volgt de waarde voor de klant: value-based pricing." },
+  { t: "Een koffiebar vraagt € 4 voor een koffie, de keten ernaast € 2,50. De koffiebar gebruikt biologische bonen en je krijgt er een koekje bij.", a: "concurrent", b: "premium",
+    e: "De koffiebar zet zich bewust hoger dan de concurrent en biedt een meerwaarde: premium pricing." },
+  { t: "Een drukkerij berekent per bedrukt T-shirt: het shirt, de inkt en de machine-uren. Daar komt 30 % bovenop.", a: "kost",
+    e: "Alle kosten per stuk + een vast percentage winst: cost-plus pricing." },
+  { t: "Een nieuwe game kost € 80 op de dag dat hij uitkomt. Fans staan er toch voor in de rij.", a: "klant",
+    e: "Fans willen het spel meteen spelen en betalen daar graag veel voor: value-based pricing." },
+];
+const NAMES = { kost: "Kost", klant: "Klant", concurrent: "Concurrent", going: "Going-rate", premium: "Premium" };
+let order = [], idx = 0, results = [], firstTry = true;
+
+function shuffle(a){ a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function show(id){ ["qStart","qRun","qEnd"].forEach(x => $(x).classList.toggle("hidden", x !== id)); }
+function progress(){
+  $("progress").innerHTML = order.map((_, i) => `<i class="${i < results.length ? (results[i] ? "ok" : "bad") : (i === idx ? "now" : "")}"></i>`).join("");
+}
+function resetChoices(sel){ document.querySelectorAll(sel + " .choice").forEach(b => { b.disabled = false; b.classList.remove("right","wrong"); }); }
+function load(){
+  const c = order[idx];
+  $("caseNr").textContent = `SITUATIE ${idx + 1} VAN ${order.length}`;
+  $("caseText").textContent = c.t;
+  resetChoices("#choices1"); resetChoices("#choices2");
+  $("step2").classList.add("hidden"); $("fb").classList.add("hidden"); $("nextBtn").classList.add("hidden");
+  progress();
+}
+function feedback(ok, c){
+  const fb = $("fb");
+  fb.className = "fb " + (ok ? "ok" : "bad");
+  const right = NAMES[c.a] + (c.b ? " – " + NAMES[c.b] : "");
+  fb.innerHTML = `<b>${ok ? "Juist!" : "Niet helemaal. Het juiste antwoord: " + right + "."}</b>${c.e}`;
+  results.push(ok);
+  progress();
+  $("nextBtn").textContent = idx === order.length - 1 ? "Bekijk je score" : "Volgende";
+  $("nextBtn").classList.remove("hidden");
+  $("nextBtn").focus();
+}
+$("choices1").addEventListener("click", e => {
+  const b = e.target.closest(".choice"); if (!b || b.disabled) return;
+  const c = order[idx], v = b.dataset.v;
+  document.querySelectorAll("#choices1 .choice").forEach(x => { x.disabled = true; if (x.dataset.v === c.a) x.classList.add("right"); });
+  if (v !== c.a){ b.classList.add("wrong"); feedback(false, c); return; }
+  if (c.a === "concurrent"){ $("step2").classList.remove("hidden"); return; }
+  feedback(true, c);
+});
+$("choices2").addEventListener("click", e => {
+  const b = e.target.closest(".choice"); if (!b || b.disabled) return;
+  const c = order[idx], v = b.dataset.v;
+  document.querySelectorAll("#choices2 .choice").forEach(x => { x.disabled = true; if (x.dataset.v === c.b) x.classList.add("right"); });
+  if (v !== c.b) b.classList.add("wrong");
+  feedback(v === c.b, c);
+});
+$("nextBtn").addEventListener("click", () => {
+  idx++;
+  if (idx < order.length) { load(); return; }
+  const score = results.filter(Boolean).length;
+  $("score").textContent = `${score} / ${order.length}`;
+  $("scoreMsg").textContent = score >= 8 ? "Sterk! Jullie herkennen de drie factoren." : score >= 5 ? "Goed bezig. Kijk nog eens naar de situaties die fout waren." : "Lees de uitleg nog eens rustig na en probeer opnieuw.";
+  const per = { kost: [0,0], klant: [0,0], concurrent: [0,0] };
+  order.forEach((c, i) => { per[c.a][1]++; if (results[i]) per[c.a][0]++; });
+  $("tally").innerHTML = Object.keys(per).map(k => `<div><span class="lbl">${NAMES[k]}</span><b>${per[k][0]} / ${per[k][1]}</b></div>`).join("");
+  show("qEnd");
+});
+function start(){ order = shuffle(CASES); idx = 0; results = []; show("qRun"); load(); }
+$("startBtn").addEventListener("click", start);
+$("againBtn").addEventListener("click", start);
+</script>
+</body>
+</html>
