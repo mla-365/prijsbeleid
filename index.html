@@ -99,10 +99,6 @@
       <div class="tag" aria-hidden="true"></div>
       <div><h1>Hoe bepaalt een onderneming haar prijs?</h1><p>Commercieel beheer · Level 5 Prijsbeleid</p></div>
     </div>
-    <nav>
-      <a href="#frituur" id="nav-frituur">1 · De frituur</a>
-      <a href="#herken" id="nav-herken">2 · Herken de prijszetting</a>
-    </nav>
   </header>
 
   <!-- ===================== DEEL 1: FRITUUR ===================== -->
@@ -111,32 +107,32 @@
     <div class="grid2">
       <div class="card">
         <div class="sliderRow">
-          <div><div class="lbl">verkochte blikjes per dag</div><div class="big" id="nOut">50</div></div>
+          <div><div class="lbl">verkochte blikjes per dag</div><div class="big" id="nOut">100</div></div>
         </div>
-        <input type="range" id="n" min="10" max="200" step="5" value="50" aria-label="Aantal blikjes per dag">
+        <input type="range" id="n" min="10" max="200" step="5" value="100" aria-label="Aantal blikjes per dag">
         <div class="presets" id="presets">
-          <button data-n="25">25</button><button data-n="50" class="on">50</button><button data-n="100">100</button><button data-n="200">200</button>
+          <button data-n="25">25</button><button data-n="50">50</button><button data-n="100" class="on">100</button><button data-n="200">200</button>
         </div>
 
         <div class="bar" id="bar" aria-label="Opbouw van de verkoopprijs">
-          <div class="seg s-aan" id="sAan"><small>AANKOOP</small><span id="vAan">€ 0,70</span></div>
-          <div class="seg s-vast" id="sVast"><small>VASTE KOST</small><span id="vVast">€ 0,60</span></div>
-          <div class="seg s-winst" id="sWinst"><small>WINST</small><span id="vWinst">€ 1,20</span></div>
+          <div class="seg s-aan" id="sAan"><small>AANKOOP</small><span id="vAan">€ 1,00</span></div>
+          <div class="seg s-vast" id="sVast"><small>VASTE KOST</small><span id="vVast">€ 0,50</span></div>
+          <div class="seg s-winst" id="sWinst"><small>WINST</small><span id="vWinst">€ 1,10</span></div>
         </div>
-        <div class="keys"><span><i style="background:var(--amber)"></i>aankoop <b id="kAan">€ 0,70</b></span><span><i style="background:var(--purple)"></i>vaste kost <b id="kVast">€ 0,60</b></span><span><i style="background:var(--red)"></i>winst <b id="kWinst">€ 1,20</b></span></div>
+        <div class="keys"><span><i style="background:var(--amber)"></i>aankoop <b id="kAan">€ 1,00</b></span><span><i style="background:var(--purple)"></i>vaste kost <b id="kVast">€ 0,50</b></span><span><i style="background:var(--red)"></i>winst <b id="kWinst">€ 1,10</b></span></div>
 
         <div class="sum">
-          <div><span>kostprijs per blikje</span><b id="kp">€ 1,30</b></div>
-          <div><span>+ winst</span><b id="wi">€ 1,20</b></div>
-          <div><span>verkoopprijs</span><b id="vp" style="color:var(--red)">€ 2,50</b></div>
+          <div><span>kostprijs per blikje</span><b id="kp">€ 1,50</b></div>
+          <div><span>+ winst</span><b id="wi">€ 1,10</b></div>
+          <div><span>verkoopprijs</span><b id="vp" style="color:var(--red)">€ 2,60</b></div>
         </div>
-        <div class="formula" id="formula">vaste kost per blikje = € 30 ÷ 50 = <b>€ 0,60</b></div>
+        <div class="formula" id="formula">vaste kost per blikje = € 50 ÷ 100 = <b>€ 0,50</b></div>
 
         <details>
           <summary>Instellingen (voor de lesgever)</summary>
-          <label>aankoop per blikje € <input type="number" id="pAan" value="0.70" step="0.05" min="0"></label>
-          <label>vaste kosten per dag € <input type="number" id="pVast" value="30" step="5" min="0"></label>
-          <label>winst per blikje € <input type="number" id="pWinst" value="1.20" step="0.10" min="0"></label>
+          <label>aankoop per blikje € <input type="number" id="pAan" value="1.00" step="0.05" min="0"></label>
+          <label>vaste kosten per dag € <input type="number" id="pVast" value="50" step="5" min="0"></label>
+          <label>winst per blikje € <input type="number" id="pWinst" value="1.10" step="0.10" min="0"></label>
         </details>
       </div>
 
@@ -147,55 +143,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ===================== DEEL 2: HERKEN ===================== -->
-  <section id="herken" class="hidden">
-    <div class="quiz">
-      <div id="qStart">
-        <div class="intro">
-          <h2 style="font-size:26px;margin-bottom:8px">Herken de prijszetting</h2>
-          Lees elke situatie. Welke factor bepaalt hier vooral de prijs?
-          <div class="legend">
-            <div><b style="color:var(--amberText)">Kost</b>kosten + winst<br><small>cost-plus pricing</small></div>
-            <div><b style="color:var(--teal)">Klant</b>wat de klant wil betalen<br><small>value-based pricing</small></div>
-            <div><b style="color:var(--purple)">Concurrent</b>wat de anderen vragen<br><small>going-rate · premium</small></div>
-          </div>
-          Werk samen met je buur. Na elke vraag zie je meteen of je juist zat.
-        </div>
-        <button class="next" id="startBtn">Start</button>
-      </div>
-
-      <div id="qRun" class="hidden">
-        <div class="progress" id="progress"></div>
-        <div class="case"><div class="nr" id="caseNr">SITUATIE 1</div><p id="caseText"></p></div>
-        <div class="ask" id="ask1">Welke factor bepaalt hier vooral de prijs?</div>
-        <div class="choices" id="choices1">
-          <button class="choice k" data-v="kost"><span class="dot"></span>Kost<small>kosten + winst</small></button>
-          <button class="choice l" data-v="klant"><span class="dot"></span>Klant<small>wat de klant wil betalen</small></button>
-          <button class="choice c" data-v="concurrent"><span class="dot"></span>Concurrent<small>wat de anderen vragen</small></button>
-        </div>
-        <div id="step2" class="hidden">
-          <div class="ask">Juist, de concurrent! Volgt de onderneming de markt, of is ze duurder met een meerwaarde?</div>
-          <div class="choices two" id="choices2">
-            <button class="choice c" data-v="going"><span class="dot"></span>Going-rate<small>ongeveer dezelfde prijs</small></button>
-            <button class="choice c" data-v="premium"><span class="dot"></span>Premium<small>duurder, met meerwaarde</small></button>
-          </div>
-        </div>
-        <div id="fb" class="fb hidden"></div>
-        <button class="next hidden" id="nextBtn">Volgende</button>
-      </div>
-
-      <div id="qEnd" class="hidden">
-        <div class="result">
-          <div class="lbl">jullie score</div>
-          <div class="big" id="score">0 / 10</div>
-          <p id="scoreMsg" style="font-size:20px"></p>
-          <div class="tally" id="tally"></div>
-          <button class="next" id="againBtn">Opnieuw (andere volgorde)</button>
-        </div>
-      </div>
-    </div>
-  </section>
 </div>
 
 <script>
@@ -203,21 +150,11 @@
 const eur = v => "€ " + v.toFixed(2).replace(".", ",");
 const $ = id => document.getElementById(id);
 
-/* ---------------- routing ---------------- */
-function route(){
-  const h = location.hash === "#herken" ? "herken" : "frituur";
-  $("frituur").classList.toggle("hidden", h !== "frituur");
-  $("herken").classList.toggle("hidden", h !== "herken");
-  $("nav-frituur").classList.toggle("active", h === "frituur");
-  $("nav-herken").classList.toggle("active", h === "herken");
-}
-addEventListener("hashchange", route); route();
-
 /* ---------------- DEEL 1 ---------------- */
 const nIn = $("n");
 function params(){
   const g = (id, d) => { const v = parseFloat($(id).value); return isNaN(v) || v < 0 ? d : v; };
-  return { aan: g("pAan", .7), vast: g("pVast", 30), winst: g("pWinst", 1.2) };
+  return { aan: g("pAan", 1), vast: g("pVast", 50), winst: g("pWinst", 1.1) };
 }
 function drawChart(n){
   const p = params(), svg = $("chart");
@@ -271,86 +208,6 @@ nIn.addEventListener("input", update);
 document.querySelectorAll("#presets button").forEach(b => b.addEventListener("click", () => { nIn.value = b.dataset.n; update(); }));
 update();
 
-/* ---------------- DEEL 2 ---------------- */
-const CASES = [
-  { t: "Tickets voor Tomorrowland zijn duur. Toch zijn ze binnen enkele minuten uitverkocht.", a: "klant",
-    e: "De organisatie weet dat fans heel veel willen betalen om erbij te zijn. De prijs volgt wat de klant ervoor overheeft: value-based pricing." },
-  { t: "Dezelfde Samsung-tv kost bij Coolblue, MediaMarkt en Vandenborre bijna exact hetzelfde.", a: "concurrent", b: "going",
-    e: "De winkels houden elkaar in de gaten en volgen de prijs van de markt: going-rate pricing." },
-  { t: "Je kapper telt alle kosten van een knipbeurt op (huur, shampoo, loon) en doet er telkens hetzelfde bedrag bovenop.", a: "kost",
-    e: "Kosten + een vaste opslag voor winst: dat is cost-plus pricing." },
-  { t: "De fietsenwinkel om de hoek is duurder dan Decathlon. Maar je krijgt advies en het eerste jaar gratis onderhoud.", a: "concurrent", b: "premium",
-    e: "De winkel is bewust duurder dan de grote concurrent en geeft er iets extra voor: premium pricing." },
-  { t: "Een bakker berekent wat de bloem, de boter, de stroom van de oven en zijn werkuren kosten. Daarna telt hij zijn winst erbij.", a: "kost",
-    e: "De bakker vertrekt van zijn kosten en telt er winst bij: cost-plus pricing." },
-  { t: "Twee tankstations aan hetzelfde kruispunt vragen bijna dezelfde prijs voor een liter benzine.", a: "concurrent", b: "going",
-    e: "Wie duurder is, verliest klanten aan de overkant. Ze volgen de marktprijs: going-rate pricing." },
-  { t: "Een zeldzame Nike-sneaker wordt doorverkocht voor € 400, terwijl hij in de winkel € 120 kostte.", a: "klant",
-    e: "Verzamelaars willen er zoveel voor betalen. De prijs volgt de waarde voor de klant: value-based pricing." },
-  { t: "Een koffiebar vraagt € 4 voor een koffie, de keten ernaast € 2,50. De koffiebar gebruikt biologische bonen en je krijgt er een koekje bij.", a: "concurrent", b: "premium",
-    e: "De koffiebar zet zich bewust hoger dan de concurrent en biedt een meerwaarde: premium pricing." },
-  { t: "Een drukkerij berekent per bedrukt T-shirt: het shirt, de inkt en de machine-uren. Daar komt 30 % bovenop.", a: "kost",
-    e: "Alle kosten per stuk + een vast percentage winst: cost-plus pricing." },
-  { t: "Een nieuwe game kost € 80 op de dag dat hij uitkomt. Fans staan er toch voor in de rij.", a: "klant",
-    e: "Fans willen het spel meteen spelen en betalen daar graag veel voor: value-based pricing." },
-];
-const NAMES = { kost: "Kost", klant: "Klant", concurrent: "Concurrent", going: "Going-rate", premium: "Premium" };
-let order = [], idx = 0, results = [], firstTry = true;
-
-function shuffle(a){ a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
-function show(id){ ["qStart","qRun","qEnd"].forEach(x => $(x).classList.toggle("hidden", x !== id)); }
-function progress(){
-  $("progress").innerHTML = order.map((_, i) => `<i class="${i < results.length ? (results[i] ? "ok" : "bad") : (i === idx ? "now" : "")}"></i>`).join("");
-}
-function resetChoices(sel){ document.querySelectorAll(sel + " .choice").forEach(b => { b.disabled = false; b.classList.remove("right","wrong"); }); }
-function load(){
-  const c = order[idx];
-  $("caseNr").textContent = `SITUATIE ${idx + 1} VAN ${order.length}`;
-  $("caseText").textContent = c.t;
-  resetChoices("#choices1"); resetChoices("#choices2");
-  $("step2").classList.add("hidden"); $("fb").classList.add("hidden"); $("nextBtn").classList.add("hidden");
-  progress();
-}
-function feedback(ok, c){
-  const fb = $("fb");
-  fb.className = "fb " + (ok ? "ok" : "bad");
-  const right = NAMES[c.a] + (c.b ? " – " + NAMES[c.b] : "");
-  fb.innerHTML = `<b>${ok ? "Juist!" : "Niet helemaal. Het juiste antwoord: " + right + "."}</b>${c.e}`;
-  results.push(ok);
-  progress();
-  $("nextBtn").textContent = idx === order.length - 1 ? "Bekijk je score" : "Volgende";
-  $("nextBtn").classList.remove("hidden");
-  $("nextBtn").focus();
-}
-$("choices1").addEventListener("click", e => {
-  const b = e.target.closest(".choice"); if (!b || b.disabled) return;
-  const c = order[idx], v = b.dataset.v;
-  document.querySelectorAll("#choices1 .choice").forEach(x => { x.disabled = true; if (x.dataset.v === c.a) x.classList.add("right"); });
-  if (v !== c.a){ b.classList.add("wrong"); feedback(false, c); return; }
-  if (c.a === "concurrent"){ $("step2").classList.remove("hidden"); return; }
-  feedback(true, c);
-});
-$("choices2").addEventListener("click", e => {
-  const b = e.target.closest(".choice"); if (!b || b.disabled) return;
-  const c = order[idx], v = b.dataset.v;
-  document.querySelectorAll("#choices2 .choice").forEach(x => { x.disabled = true; if (x.dataset.v === c.b) x.classList.add("right"); });
-  if (v !== c.b) b.classList.add("wrong");
-  feedback(v === c.b, c);
-});
-$("nextBtn").addEventListener("click", () => {
-  idx++;
-  if (idx < order.length) { load(); return; }
-  const score = results.filter(Boolean).length;
-  $("score").textContent = `${score} / ${order.length}`;
-  $("scoreMsg").textContent = score >= 8 ? "Sterk! Jullie herkennen de drie factoren." : score >= 5 ? "Goed bezig. Kijk nog eens naar de situaties die fout waren." : "Lees de uitleg nog eens rustig na en probeer opnieuw.";
-  const per = { kost: [0,0], klant: [0,0], concurrent: [0,0] };
-  order.forEach((c, i) => { per[c.a][1]++; if (results[i]) per[c.a][0]++; });
-  $("tally").innerHTML = Object.keys(per).map(k => `<div><span class="lbl">${NAMES[k]}</span><b>${per[k][0]} / ${per[k][1]}</b></div>`).join("");
-  show("qEnd");
-});
-function start(){ order = shuffle(CASES); idx = 0; results = []; show("qRun"); load(); }
-$("startBtn").addEventListener("click", start);
-$("againBtn").addEventListener("click", start);
 </script>
 </body>
 </html>
